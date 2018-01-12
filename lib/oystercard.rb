@@ -1,6 +1,7 @@
+require_relative 'journey'
+
 class Oystercard
   #controls the user balance
-  require_relative 'journey'
 
   MINIMUM_FARE = 1
   MAXIMUM_BALANCE = 90
@@ -12,6 +13,7 @@ class Oystercard
     @balance = 0
     @history = []
     @journey_class = journey_class
+    @current_journey = @journey_class.new
   end
 
   def top_up(amount)
@@ -49,8 +51,6 @@ class Oystercard
   def insufficient_funds?
     @balance < MINIMUM_FARE
   end
-
-  private
 
   def complete_journey
       @history << @current_journey

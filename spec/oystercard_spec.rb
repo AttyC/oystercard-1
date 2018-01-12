@@ -1,11 +1,16 @@
 require 'oystercard'
 
 describe Oystercard do
+  # create a double for journey,this will respond to the following methods:
   let(:journey) {double :journey, origin: entry_station, destination: exit_station, fare: 1 }
+  #create doubles for entry_station and exit_station
   let(:entry_station) { double :entry_station }
   let(:exit_station) { double :exit_station }
+  # create a double for the Journey class which responds to a .new method e.g. Journey.new
   let(:journey_class) { double :journey_class, new: journey}
+  # set 'subject' to be Oystercard. described_class is Oystercard and it takes an argument of (journey_class)
   subject(:oystercard) { described_class.new(journey_class) }
+  # subject(:oystercard) { described_class.new}
 
   describe 'initially' do
     it 'has a initial balance of 0' do
@@ -34,8 +39,7 @@ describe Oystercard do
 
   describe '#touch_in' do
     it 'touches in successfully' do
-      oystercard.top_up(2)
-      expect(journey_class).to receive(:new)
+      oystercard.top_up(2) # tops up oystercard
       oystercard.touch_in(entry_station)
     end
 
